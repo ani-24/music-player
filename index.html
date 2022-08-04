@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music Player</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    />
+    <link rel="shortcut icon" href="./music_logo.png" type="image/png" />
+  </head>
+  <body>
+    <div class="app">
+      <div class="sidenav">
+        <ul></ul>
+      </div>
+      <main>
+        <div class="card">
+          <div class="card-top">
+            <div class="card-img">
+              <img
+                src="./flowers.jpg"
+                alt="Bla bla blas"
+                class="music-poster"
+              />
+            </div>
+            <div class="card-controls">
+              <div class="btn prev">
+                <i class="fa-solid fa-backward-fast"></i>
+              </div>
+              <div class="btn next">
+                <i class="fa-solid fa-forward-fast"></i>
+              </div>
+              <div class="btn play-pause">
+                <i class="fa-solid fa-play"></i>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-title music-name"></div>
+            <div class="card-timeline">
+              <div class="card-duration duration"></div>
+              <div class="seekbar">
+                <div class="played"></div>
+              </div>
+              <div class="card-played time">00:00</div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="./main.js"></script>
+  </body>
+</html>
