@@ -5,6 +5,7 @@ let musics = [
       "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/1.jpg",
     source:
       "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/1.mp3",
+    album: "./imgs/album1.jpg",
   },
   {
     name: "Everybody Knows",
@@ -12,6 +13,7 @@ let musics = [
       "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/2.jpg",
     source:
       "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/2.mp3",
+    album: "/imgs/album2.jpg",
   },
   {
     name: "Extreme Ways",
@@ -19,6 +21,7 @@ let musics = [
       "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/3.jpg",
     source:
       "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/3.mp3",
+    album: "/imgs/album3.jpg",
   },
   {
     name: "Butterflies",
@@ -26,6 +29,7 @@ let musics = [
       "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/4.jpg",
     source:
       "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/4.mp3",
+    album: "/imgs/album4.jpg",
   },
   {
     name: "The Final Victory",
@@ -33,6 +37,7 @@ let musics = [
       "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/5.jpg",
     source:
       "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/5.mp3",
+    album: "/imgs/album5.jpg",
   },
   {
     name: "Genius ft. Sia, Diplo, Labrinth",
@@ -40,6 +45,7 @@ let musics = [
       "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/6.jpg",
     source:
       "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/6.mp3",
+    album: "/imgs/album6.jpg",
   },
   {
     name: "The Comeback Kid",
@@ -47,6 +53,7 @@ let musics = [
       "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/7.jpg",
     source:
       "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/7.mp3",
+    album: "/imgs/album7.jpg",
   },
   {
     name: "Overdose",
@@ -54,6 +61,7 @@ let musics = [
       "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/8.jpg",
     source:
       "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/8.mp3",
+    album: "/imgs/album8.jpg",
   },
   {
     name: "Rag'n'Bone Man",
@@ -61,6 +69,7 @@ let musics = [
       "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/9.jpg",
     source:
       "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/9.mp3",
+    album: "/imgs/album9.jpg",
   },
 ];
 
@@ -71,6 +80,7 @@ let playState = false;
 
 const sidenav = document.querySelector(".sidenav ul");
 const poster = document.querySelector(".music-poster");
+const album = document.querySelector(".music-album");
 const musicName = document.querySelector(".music-name");
 const duration = document.querySelector(".duration");
 const time = document.querySelector(".time");
@@ -130,14 +140,17 @@ const updatePlayPauseState = () => {
 const updatePlayer = () => {
   music.src = musics[index].source;
   poster.src = musics[index].cover;
+  album.src = musics[index].album;
   musicName.innerText = musics[index].name;
   setCurrentTime(0, 10);
   music.addEventListener("loadeddata", () => {
     let musicDuration = convertInMin(music.duration);
     if (playState) {
       music.play();
+      album.setAttribute("style", "animation: rotate 10s infinite linear");
     } else {
       music.pause();
+      album.setAttribute("style", "animation: none");
     }
     duration.innerText = musicDuration;
     music.addEventListener("timeupdate", () => {
@@ -162,13 +175,12 @@ document.addEventListener("DOMContentLoaded", () => {
 window.addEventListener("keydown", (key) => {
   if (key.key === " ") {
     if (!music.paused) {
-      music.pause();
       playState = false;
     } else {
-      music.play();
       playState = true;
     }
     updatePlayPauseState();
+    updatePlayer();
   } else if (num.includes(key.key)) {
     const percent = parseInt(key.key) * 10;
     music.currentTime = (music.duration * percent) / 100;
@@ -178,12 +190,11 @@ window.addEventListener("keydown", (key) => {
 
 playPause.addEventListener("click", () => {
   if (music.paused) {
-    music.play();
     playState = true;
   } else {
-    music.pause();
     playState = false;
   }
+  updatePlayer();
   updatePlayPauseState();
 });
 

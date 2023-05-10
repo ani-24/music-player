@@ -105,10 +105,43 @@ main::before {
   margin-left: -30px;
   overflow: hidden;
   box-shadow: 0 10px 25px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 img {
   width: 100%;
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  bottom: 0;
+  left: 0;
+}
+
+.card-img .music-album {
+  position: absolute;
+  height: 75px;
+  width: 75px;
+  object-fit: cover;
+  border-radius: 50%;
+  bottom: 20px;
+  left: 20px;
+  z-index: 10;
+}
+
+@keyframes rotate {
+  from {
+    rotate: 0;
+  }
+  to {
+    rotate: 360deg;
+  }
 }
 
 .card-controls {
