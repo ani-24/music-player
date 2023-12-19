@@ -1,75 +1,48 @@
 let musics = [
   {
-    name: "Mekanın Sahibi",
+    name: "Let You Down",
     cover:
-      "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/1.jpg",
+      "https://s3-us-west-2.amazonaws.com/s.cdpn.io/308622/perception-album-cover.png",
     source:
-      "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/1.mp3",
+      "https://s3-us-west-2.amazonaws.com/s.cdpn.io/308622/NF%20-%20Let%20You%20Down.mp3",
     album: "./imgs/album1.jpg",
+    color: "#c3af50",
   },
   {
-    name: "Everybody Knows",
+    name: "rockstar",
     cover:
-      "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/2.jpg",
+      "https://s3-us-west-2.amazonaws.com/s.cdpn.io/308622/rockstar-album-cover.jpg",
     source:
-      "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/2.mp3",
-    album: "/imgs/album2.jpg",
+      "https://s3-us-west-2.amazonaws.com/s.cdpn.io/308622/Post%20Malone%20-%20rockstar%20ft.%2021%20Savage%20(1).mp3",
+    album: "./imgs/album2.jpg",
+    color: "#25323b",
   },
   {
-    name: "Extreme Ways",
+    name: "Silence",
     cover:
-      "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/3.jpg",
+      "https://s3-us-west-2.amazonaws.com/s.cdpn.io/308622/silence-album-cover.jpg",
     source:
-      "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/3.mp3",
-    album: "/imgs/album3.jpg",
+      "https://s3-us-west-2.amazonaws.com/s.cdpn.io/308622/Marshmello%20-%20Silence%20ft.%20Khalid.mp3",
+    album: "./imgs/album3.jpg",
+    color: "#c1c1c1",
   },
   {
-    name: "Butterflies",
+    name: "I Fall Apart",
     cover:
-      "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/4.jpg",
+      "https://s3-us-west-2.amazonaws.com/s.cdpn.io/308622/stoney-cover-album.jpg",
     source:
-      "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/4.mp3",
-    album: "/imgs/album4.jpg",
+      "https://s3-us-west-2.amazonaws.com/s.cdpn.io/308622/Post%20Malone%20-%20I%20Fall%20Apart.mp3",
+    album: "./imgs/album4.jpg",
+    color: "#cd4829",
   },
   {
-    name: "The Final Victory",
+    name: "Fireproof",
     cover:
-      "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/5.jpg",
+      "https://s3-us-west-2.amazonaws.com/s.cdpn.io/308622/fireproof-album-cover.jpeg",
     source:
-      "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/5.mp3",
-    album: "/imgs/album5.jpg",
-  },
-  {
-    name: "Genius ft. Sia, Diplo, Labrinth",
-    cover:
-      "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/6.jpg",
-    source:
-      "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/6.mp3",
-    album: "/imgs/album6.jpg",
-  },
-  {
-    name: "The Comeback Kid",
-    cover:
-      "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/7.jpg",
-    source:
-      "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/7.mp3",
-    album: "/imgs/album7.jpg",
-  },
-  {
-    name: "Overdose",
-    cover:
-      "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/8.jpg",
-    source:
-      "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/8.mp3",
-    album: "/imgs/album8.jpg",
-  },
-  {
-    name: "Rag'n'Bone Man",
-    cover:
-      "https://raw.githubusercontent.com/muhammederdem/mini-player/master/img/9.jpg",
-    source:
-      "https://raw.githubusercontent.com/muhammederdem/mini-player/master/mp3/9.mp3",
-    album: "/imgs/album9.jpg",
+      "https://s3-us-west-2.amazonaws.com/s.cdpn.io/308622/VAX%20-%20Fireproof%20Feat%20Teddy%20Sky.mp3",
+    album: "./imgs/album5.jpg",
+    color: "#5d0126",
   },
 ];
 
@@ -89,6 +62,7 @@ const seekbar = document.querySelector(".seekbar");
 const playPause = document.querySelector(".play-pause");
 const next = document.querySelector(".next");
 const prev = document.querySelector(".prev");
+const main = document.querySelector("main");
 
 sidenav.addEventListener("click", (e) => {
   if (e.target.classList.contains("sidenav-item")) {
@@ -130,29 +104,30 @@ const setCurrentTime = (currentTime, duration) => {
 };
 
 const updatePlayPauseState = () => {
-  if (!playState) {
-    playPause.innerHTML = '<i class="fa-solid fa-play"></i>';
-  } else {
+  if (playState) {
     playPause.innerHTML = '<i class="fa-solid fa-pause"></i>';
+    music.play();
+    album.setAttribute("style", "animation: rotate 10s infinite linear");
+  } else {
+    playPause.innerHTML = '<i class="fa-solid fa-play"></i>';
+    music.pause();
+    album.setAttribute("style", "animation: none");
   }
 };
 
-const updatePlayer = () => {
-  music.src = musics[index].source;
-  poster.src = musics[index].cover;
-  album.src = musics[index].album;
-  musicName.innerText = musics[index].name;
-  setCurrentTime(0, 10);
+const updatePlayer = (isPlayPause) => {
+  if (!isPlayPause) {
+    music.src = musics[index].source;
+    poster.src = musics[index].cover;
+    album.src = musics[index].album;
+    musicName.innerText = musics[index].name;
+    main.style.backgroundColor = musics[index].color;
+  }
   music.addEventListener("loadeddata", () => {
     let musicDuration = convertInMin(music.duration);
-    if (playState) {
-      music.play();
-      album.setAttribute("style", "animation: rotate 10s infinite linear");
-    } else {
-      music.pause();
-      album.setAttribute("style", "animation: none");
-    }
+    updatePlayPauseState();
     duration.innerText = musicDuration;
+    console.log(music.currentTime);
     music.addEventListener("timeupdate", () => {
       if (music.ended) {
         next.click();
@@ -180,7 +155,7 @@ window.addEventListener("keydown", (key) => {
       playState = true;
     }
     updatePlayPauseState();
-    updatePlayer();
+    updatePlayer(true);
   } else if (num.includes(key.key)) {
     const percent = parseInt(key.key) * 10;
     music.currentTime = (music.duration * percent) / 100;
@@ -194,7 +169,7 @@ playPause.addEventListener("click", () => {
   } else {
     playState = false;
   }
-  updatePlayer();
+  updatePlayer(true);
   updatePlayPauseState();
 });
 
