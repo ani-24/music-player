@@ -6,7 +6,7 @@ let musics = [
     source:
       "https://s3-us-west-2.amazonaws.com/s.cdpn.io/308622/NF%20-%20Let%20You%20Down.mp3",
     album: "./imgs/album1.jpg",
-    color: "#c3af50",
+    color: "#25323b",
   },
   {
     name: "rockstar",
@@ -15,7 +15,7 @@ let musics = [
     source:
       "https://s3-us-west-2.amazonaws.com/s.cdpn.io/308622/Post%20Malone%20-%20rockstar%20ft.%2021%20Savage%20(1).mp3",
     album: "./imgs/album2.jpg",
-    color: "#25323b",
+    color: "#c3af50",
   },
   {
     name: "Silence",
@@ -63,6 +63,7 @@ const playPause = document.querySelector(".play-pause");
 const next = document.querySelector(".next");
 const prev = document.querySelector(".prev");
 const main = document.querySelector("main");
+const card = document.querySelector(".card");
 
 sidenav.addEventListener("click", (e) => {
   if (e.target.classList.contains("sidenav-item")) {
@@ -122,6 +123,7 @@ const updatePlayer = (isPlayPause) => {
     album.src = musics[index].album;
     musicName.innerText = musics[index].name;
     main.style.backgroundColor = musics[index].color;
+    // card.style.backgroundColor = musics[index].color;
   }
   music.addEventListener("loadeddata", () => {
     let musicDuration = convertInMin(music.duration);
